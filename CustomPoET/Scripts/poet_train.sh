@@ -1,0 +1,1 @@
+sudo docker run --entrypoint= -v ./PoETMod:/opt/project -v ./SyntheticVideoGeneration/Data/Datasets/ThalesDataset/GeneratedScenesBop/test_all:/opt/project/PoetDataset/test_all -v ./SyntheticVideoGeneration/Data/Datasets/ThalesDataset/GeneratedScenesBop/train:/opt/project/PoetDataset/train --shm-size=10g --rm --gpus all aaucns/poet:latest python -u /opt/project/main.py
