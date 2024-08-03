@@ -1,12 +1,13 @@
 __pycache__/
 .vscode/
-CustomBlenderProc/GeneratedScenesBop/
-CustomBlenderProc/BackgroundTextures
-CustomBlenderProc/datasets
+CustomBlenderproc/GeneratedScenesBop/
+CustomBlenderproc/BackgroundTextures/
+CustomBlenderproc/datasets/
+CustomBlenderproc/venv/
+CustomBlenderproc/blenderproc.egg-info/
 
 CustomPoET/YoloOutput/
 CustomPoET/YoloRuns/
 
-CustomPoET/PreTrained/
 CustomPoET/PoetOutput/
 CustomPoET/PoetDataset/
