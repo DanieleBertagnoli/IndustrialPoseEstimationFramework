@@ -20,6 +20,14 @@ rm datasets.zip
 deactivate
 cd ..
 
+# Downloading pre-trained weights
+cd CustomPoET
+mkdir PreTrained
+cd PreTrained
+wget https://bertagnoli.ddns.net/static/PublicDrive/ycbv_yolo_weights.pt
+wget https://bertagnoli.ddns.net/static/PublicDrive/poet_yolo.pth
+cd ../..
+
 # Pull docker image
 docker pull aaucns/poet:latest
 
