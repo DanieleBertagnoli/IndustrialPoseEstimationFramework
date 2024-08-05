@@ -29,11 +29,6 @@ while [[ "$#" -gt 0 ]]; do
     shift
 done
 
-if [ -z "$dataset_name" ]; then
-    echo "Error: --dataset_name is required."
-    usage
-fi
-
 annotations_path="../../CustomPoET/PoetDataset/annotations/$dataset_name"
 models_eval_path="../../CustomPoET/PoetDataset/models_eval/$dataset_name"
 

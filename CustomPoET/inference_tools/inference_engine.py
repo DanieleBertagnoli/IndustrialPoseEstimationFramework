@@ -110,7 +110,7 @@ def inference(args):
             cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), 2)  # Draw Rectangle
             center = np.array([(x1 + x2) // 2, (y1 + y2) // 2])
             draw_axes(img, center, pred_rot_numpy)
-            cv2.imwrite(os.path.join(args.inference_output, f"{img_file}_predicted.png"), img)
+            cv2.imwrite(os.path.join(args.inference_output, f"{img_file[:-4]}_predicted.png"), img)
 
 
         samples, targets = prefetcher.next()

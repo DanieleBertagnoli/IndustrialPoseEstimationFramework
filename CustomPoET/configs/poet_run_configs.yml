@@ -62,7 +62,6 @@ inference_configs:
   backbone_weights: '/opt/project/PreTrained/yolo_thales.pt'
   resume: '/opt/project/PreTrained/poet_thales.pth'
   inference: 1
-  inference_path: '/data/0000'
   inference_output: '/opt/project/InferenceOutput'
   lr_backbone: 0
   bbox_mode: 'backbone'
@@ -78,4 +77,4 @@ inference_configs:
   models: '/models_eval/Thales/'
   model_symmetry: '/annotations/Thales/symmetries.json'
   class_info: '/annotations/Thales/classes.json'
-  webcam: true
+  inference_path: '/data/0000'

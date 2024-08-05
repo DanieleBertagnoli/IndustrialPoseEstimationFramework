@@ -7,7 +7,7 @@ training_configs:
   data: '/opt/project/models/yolov4/yolo/data/thales.yaml'
   epochs: 20
   batch_size: 16
-  train: false
+  train: true
 
 
 inference_configs:
@@ -15,7 +15,4 @@ inference_configs:
   weights: '/opt/project/PreTrained/best.pt'
   cfg: '/opt/project/configs/yolo.cfg'
   names: '/opt/project/models/yolov4/yolo/data/thales.names'
-  source: '/YoloDataset/test/images'
-  #source: '0'
-  send_img: false
   output: '/opt/project/YoloOutput'

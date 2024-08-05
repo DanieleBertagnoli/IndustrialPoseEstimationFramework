@@ -220,7 +220,7 @@ if __name__ == '__main__':
     parser.add_argument('--cfg', type=str, default='cfg/yolov4.cfg', help='*.cfg path')
     parser.add_argument('--names', type=str, default='data/coco.names', help='*.cfg path')
 
-    parser.add_argument('--send_img', action='store_false', help='')
+    parser.add_argument('--webcam', type=int, default=False, help='')
     opt = parser.parse_args()
 
     configs_path = '/opt/project/configs/yolo_run_configs.yml'
@@ -233,7 +233,7 @@ if __name__ == '__main__':
 
     print(opt)
 
-    if opt.send_img:
+    if opt.webcam:
         # Set up socket
         server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         server_socket.bind(('0.0.0.0', 9999))  # Bind to all interfaces and port 9999
@@ -241,6 +241,10 @@ if __name__ == '__main__':
         print("Waiting for a connection...")
         client_socket, addr = server_socket.accept()
         print("Connected to:", addr)
+
+        opt.source = '0'
+    else:
+        opt.source = '/YoloDataset/test/images'
 
     try:
         with torch.no_grad():
@@ -251,6 +255,6 @@ if __name__ == '__main__':
             else:
                 detect()
     finally:
-        if opt.send_img:
+        if opt.webcam:
             client_socket.close()
             server_socket.close()
