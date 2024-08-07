@@ -42,7 +42,7 @@ echo "Created the necessary directories."
 if [[ -d "../../CustomBlenderproc/datasets/$dataset_name/models/" ]]; then
     cp ../../CustomBlenderproc/datasets/$dataset_name/models/*.ply $models_eval_path
     echo "All .ply have been copied."
-    cp cp ../../CustomBlenderproc/datasets/$dataset_name/models/models_info.json $models_eval_path
+    cp ../../CustomBlenderproc/datasets/$dataset_name/models/models_info.json $models_eval_path
 else   
     echo "Cannot find the directory \"../../CustomBlenderproc/datasets/$dataset_name/models/\"" 
     exit 1

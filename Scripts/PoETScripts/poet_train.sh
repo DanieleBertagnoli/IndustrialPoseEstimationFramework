@@ -60,8 +60,19 @@ fi
 # Run the dataset conversion script
 ./convert_dataset.sh --dataset_name $dataset_name --gpu_mem_size $gpu_mem_size
 
+# Check if the script exited with code 1
+if [[ $? -eq 1 ]]; then
+    echo "convert_dataset.sh exited with code 1"
+    # Handle the error accordingly
+    exit 1
+fi
+
 # Run the Docker container
 sudo docker run --entrypoint= -v $(pwd)/../../CustomPoET:/opt/project \
     -v $(pwd)/../../Datasets/$dataset_name/GeneratedScenesBop/test_all:/opt/project/PoetDataset/test_all \
     -v $(pwd)/../../Datasets/$dataset_name/GeneratedScenesBop/train:/opt/project/PoetDataset/train \
-    --shm-size=${gpu_mem_size}g --rm --gpus all aaucns/poet:latest python -u /opt/project/main.py
+    --shm-size=${gpu_mem_size}g --rm --gpus all aaucns/poet:latest python \
+    -u /opt/project/main.py \
+    --models="/models_eval/$dataset_name/" \
+    --model_symmetry="/annotations/$dataset_name/symmetries.json" \
+    --class_info="/annotations/$dataset_name/classes.json"

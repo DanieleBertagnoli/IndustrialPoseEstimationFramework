@@ -1,1 +1,1 @@
-- [] Add the class name parametrization to ycbv2poet.py
+- [x] Add the class name parametrization to ycbv2poet.py

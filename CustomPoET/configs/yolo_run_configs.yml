@@ -4,7 +4,6 @@ training_configs:
   cfg: '/opt/project/configs/yolo.cfg'
   hyp: '/opt/project/models/yolov4/yolo/data/hyp.scratch.yaml'
   to_freeze: 50
-  data: '/opt/project/models/yolov4/yolo/data/thales.yaml'
   epochs: 20
   batch_size: 16
   train: true
@@ -14,5 +13,4 @@ inference_configs:
   device: '0'
   weights: '/opt/project/PreTrained/best.pt'
   cfg: '/opt/project/configs/yolo.cfg'
-  names: '/opt/project/models/yolov4/yolo/data/thales.names'
   output: '/opt/project/YoloOutput'

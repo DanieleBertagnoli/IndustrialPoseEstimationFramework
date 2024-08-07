@@ -52,13 +52,13 @@ if [[ -z "$gpu_mem_size" ]]; then
 fi
 
 # Check if the dataset directory exists
-if [[ ! -d "$(pwd)/../../$dataset_name/Datasets/GeneratedScenesBop" ]]; then
-    echo "Error: Dataset directory ../../$dataset_name/Datasets/GeneratedScenesBop does not exist."
+if [[ ! -d "$(pwd)/../../Datasets/$dataset_name/GeneratedScenesBop" ]]; then
+    echo "Error: Dataset directory ../../Datasets/$dataset_name/GeneratedScenesBop does not exist."
     exit 1
 fi
 
 # Run the Docker container
 sudo docker run --entrypoint= -v $(pwd)/../../CustomPoET:/opt/project \
-    -v $(pwd)/../../$dataset_name/Datasets/GeneratedScenesBop/:/TmpDataset \
+    -v $(pwd)/../../Datasets/$dataset_name/GeneratedScenesBop/:/TmpDataset \
     --shm-size=${gpu_mem_size}g --rm --gpus all aaucns/poet:latest python \
     -u /opt/project/data_utils/data_annotation/ycbv2poet.py

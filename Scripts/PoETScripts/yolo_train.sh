@@ -64,4 +64,6 @@ fi
 sudo docker run --entrypoint= -v $(pwd)/../../CustomPoET:/opt/project \
     -v $(pwd)/../../Datasets/$dataset_name/YoloDatasetV2/:/YoloDataset \
     --shm-size=${gpu_mem_size}g --rm --gpus all aaucns/poet:latest python \
-    -u /opt/project/models/yolov4/yolo/train.py
+    -u /opt/project/models/yolov4/yolo/train.py \
+    --data="/opt/project/models/yolov4/yolo/data/$dataset_name.yaml" \
+    --names="/opt/project/models/yolov4/yolo/data/$dataset_name.names"

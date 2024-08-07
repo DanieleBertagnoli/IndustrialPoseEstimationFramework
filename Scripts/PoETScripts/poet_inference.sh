@@ -98,7 +98,12 @@ fi
 sudo docker run --entrypoint= -v $(pwd)/../../CustomPoET:/opt/project \
     -p 9999:9999 \
     $mount \
-    --shm-size=${gpu_mem_size}g --rm --gpus all aaucns/poet:latest python -u /opt/project/poet_inference.py --webcam=$webcam &
+    --shm-size=${gpu_mem_size}g --rm --gpus all aaucns/poet:latest python \
+    -u /opt/project/poet_inference.py \
+    --webcam=$webcam \
+    --models="/models_eval/$dataset_name/" \
+    --model_symmetry="/annotations/$dataset_name/symmetries.json" \
+    --class_info="/annotations/$dataset_name/classes.json" &
 
 # Capture the Docker container ID
 CONTAINER_ID=$!

@@ -1,15 +1,15 @@
-import os 
+import os
 import shutil
 import json
+import argparse
 from time import time
 
-def convert(path:str, train:bool):
-
+def convert(path: str, train: bool, new_yolo_path: str, img_width: int, img_height: int):
     # Create new directories
     if train:
-        new_path = os.path.join(NEW_YOLO_PATH, 'train')
+        new_path = os.path.join(new_yolo_path, 'train')
     else:   
-        new_path = os.path.join(NEW_YOLO_PATH, 'test')
+        new_path = os.path.join(new_yolo_path, 'test')
     
     start = time()
     print('Copying files...')
@@ -62,20 +62,18 @@ def convert(path:str, train:bool):
 
                 x_min = bbox_labels[0]
                 y_min = bbox_labels[1]
-                w = bbox_labels[2]/IMG_WIDTH
-                h = bbox_labels[3]/IMG_HEIGHT
+                w = bbox_labels[2] / img_width
+                h = bbox_labels[3] / img_height
 
-                cx = (x_min + bbox_labels[2]/2)/IMG_WIDTH
-                cy = (y_min + bbox_labels[3]/2)/IMG_HEIGHT 
+                cx = (x_min + bbox_labels[2] / 2) / img_width
+                cy = (y_min + bbox_labels[3] / 2) / img_height 
 
                 labels += f'{object_id} {cx} {cy} {w} {h}\n'
-
 
             # Yolo labels
             with open(os.path.join(new_path, 'labels', f'{scene}-{img[:-4]}.txt'), 'w') as f:
                 f.write(labels)
 
-            
         # Move images
         for img in os.listdir(rgb_path):
             files += f'./images/{scene}-{img[:-4]}.jpg\n'
@@ -97,16 +95,25 @@ def convert(path:str, train:bool):
     print(f'File refactoring done in {time()-start}s')
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Convert dataset to YOLO format.')
+    parser.add_argument('--dataset_name', type=str, required=True, help='Specify the dataset name.')
+    args = parser.parse_args()
 
-    GENERATED_SCENES_BOP_PATH = f'{os.path.dirname(__file__)}/../../Datasets/GeneratedScenesBop'
-    NEW_YOLO_PATH = f'{os.path.dirname(__file__)}/../../Datasets/YoloDatasetV2'
+    dataset_name = args.dataset_name
+
+    GENERATED_SCENES_BOP_PATH = f'{os.path.dirname(__file__)}/../../Datasets/{dataset_name}/GeneratedScenesBop'
+    NEW_YOLO_PATH = f'{os.path.dirname(__file__)}/../../Datasets/{dataset_name}/YoloDatasetV2'
 
     IMG_WIDTH = 640
     IMG_HEIGHT = 480
 
-    if os.path.exists(NEW_YOLO_PATH):
-        shutil.rmtree(NEW_YOLO_PATH)
-    os.makedirs(NEW_YOLO_PATH)
+    # Check if the paths exist
+    if not os.path.exists(GENERATED_SCENES_BOP_PATH):
+        print(f"Error: The path {GENERATED_SCENES_BOP_PATH} does not exist.")
+        exit(1)
+    
+    if not os.path.exists(NEW_YOLO_PATH):
+        os.makedirs(NEW_YOLO_PATH)
 
-    convert(os.path.join(GENERATED_SCENES_BOP_PATH, 'train', 'train_synt'), True)
-    convert(os.path.join(GENERATED_SCENES_BOP_PATH, 'test_all', 'test'), False)
+    convert(os.path.join(GENERATED_SCENES_BOP_PATH, 'train', 'train_synt'), True, NEW_YOLO_PATH, IMG_WIDTH, IMG_HEIGHT)
+    convert(os.path.join(GENERATED_SCENES_BOP_PATH, 'test_all', 'test'), False, NEW_YOLO_PATH, IMG_WIDTH, IMG_HEIGHT)

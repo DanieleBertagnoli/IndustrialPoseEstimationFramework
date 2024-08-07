@@ -420,6 +420,8 @@ if __name__ == '__main__':
     if args.output_dir:
         Path(args.output_dir).mkdir(parents=True, exist_ok=True)
 
+    print(args)
+
     if args.inference:
         inference(args)
     else:

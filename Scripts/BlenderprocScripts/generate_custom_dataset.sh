@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# Usage function
 function usage() {
-    echo "Usage: $0 --dataset_name <name> --num_scenes <number> --yolo_conversion [0-1]"
+    echo "Usage: $0 --dataset_name <name> --num_scenes <number> --yolo_conversion <true|false>"
+    echo "Options:"
+    echo "  --dataset_name <name>        Specify the dataset name. Required."
+    echo "  --num_scenes <number>        Specify the number of scenes. Optional."
+    echo "  --yolo_conversion <true|false>      Specify whether to perform YOLO conversion (0 or 1). Optional."
     exit 1
 }
 
@@ -48,11 +53,14 @@ while [[ "$#" -gt 0 ]]; do
             fi
             ;;
         --yolo_conversion)
-            if [[ $2 -eq 0 || $2 -eq 1 ]]; then
-                yolo_conversion="$2"
+            if [[ $2 == "true" ]]; then 
+                yolo_conversion=1
+                shift
+            elif [[ $2 == "false" ]]; then
+                yolo_conversion=0
                 shift
             else
-                echo "Error: --yolo_conversion must be either 0 or 1."
+                echo "Error: --yolo_conversion must be either true or false."
                 usage
             fi
             ;;
@@ -120,6 +128,7 @@ for ((i=$current_gen_scenes; i<num_scenes; i++)); do
     fi
 done
 
+# Refactoring the dataset structure
 cd $blenderproc_dir/GeneratedScenesBop/bop_data
 mv ycbv/train_pbr/ ./train_synt/
 mv ycbv/camera.json ./
@@ -155,13 +164,23 @@ fi
 
 cd $script_dir
 
+# Remove the temporary dataset
 rm -rf $blenderproc_dir/datasets/ycbv
+
+# Move the models_info.json into the original dataset
 mv $blenderproc_dir/datasets/models_info.json $blenderproc_dir/datasets/$dataset_name
 
-mkdir ../../Datasets
+# Create the datasets folder if it doesn't exist
+if [[ ! -d "../../Datasets" ]]; then
+    mkdir ../../Datasets
+fi
+
+# Move the generated dataset into the datasets folder
 mv $blenderproc_dir/GeneratedScenesBop ../../Datasets
+
+# Start the yolo conversion if enabled
 if [[ $yolo_conversion -eq 1 ]]; then 
-    python3 yolo_conversion.py
+    python3 yolo_conversion.py --dataset_name $dataset_name
 fi
 
 deactivate

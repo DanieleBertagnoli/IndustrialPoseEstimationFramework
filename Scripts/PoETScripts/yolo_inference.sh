@@ -78,7 +78,9 @@ sudo docker run --entrypoint= -v $(pwd)/../../CustomPoET:/opt/project \
     $mount_dataset \
     $mount_webcam \
     --shm-size=${gpu_mem_size}g --rm --gpus all -p 9999:9999 aaucns/poet:latest \
-    python -u /opt/project/models/yolov4/yolo/detect.py --webcam=$webcam&
+    python -u /opt/project/models/yolov4/yolo/detect.py \
+    --webcam=$webcam \
+    --names="/opt/project/models/yolov4/yolo/data/$dataset_name.names"& 
 
 # Capture the Docker container ID
 CONTAINER_ID=$!
