@@ -150,6 +150,22 @@ def receive_and_save_image(client_socket, save_path):
         frame_data = data[:msg_size]
         frame = pickle.loads(frame_data)
 
+        # Get the dimensions of the frame
+        height, width, _ = frame.shape
+
+        # Crop the frame to accomodate the model input size
+        if height != 480 or width != 640:
+            # Calculate the starting point for cropping (center crop)
+            start_x = width//2 - 320
+            start_y = height//2 - 240
+
+            # Ensure the cropping area is within the frame dimensions
+            start_x = max(0, start_x)
+            start_y = max(0, start_y)
+
+            # Crop the frame to 640x480
+            frame = frame[start_y:start_y + 480, start_x:start_x + 640]
+
         # Save the image to the specified path
         save_path = Path(save_path)
         save_path.parent.mkdir(parents=True, exist_ok=True)
@@ -196,6 +212,8 @@ def webcam_inference(args):
 
     prefetcher = data_prefetcher(data_loader_inference, device, prefetch=False)
 
+    count = 1
+
     print('Starting inference')
     while True:        
         # Reset the prefetcher to ensure the new image is loaded
@@ -234,8 +252,6 @@ def webcam_inference(args):
         send_image(client_socket, img)
 
         # Receive and save the new image
-        if receive_and_save_image(client_socket, image_path):
-            print(f"Image saved to {image_path}")
-        else:
+        if not receive_and_save_image(client_socket, image_path):
             print("Failed to receive image")
             break

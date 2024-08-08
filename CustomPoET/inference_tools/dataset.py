@@ -33,6 +33,7 @@ class InferenceDataset(VisionDataset):
         self.image_paths = [f for f in listdir(root) if isfile(join(root, f))]
         self.image_paths.sort(key=lambda f: int(re.sub('\D', '', f)))
         self.webcam = webcam
+        print(self.image_paths)
 
     def get_image(self, path, mode='RGB'):
         return Image.open(join(self.root, path)).convert(mode)

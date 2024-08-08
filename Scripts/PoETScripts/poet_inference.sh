@@ -109,7 +109,7 @@ sudo docker run --entrypoint= -v $(pwd)/../../CustomPoET:/opt/project \
 CONTAINER_ID=$!
 
 # Wait for the container to start up
-sleep 20
+sleep 10
 
 if [[ $webcam -eq 1 ]]; then
     echo "Starting client"
