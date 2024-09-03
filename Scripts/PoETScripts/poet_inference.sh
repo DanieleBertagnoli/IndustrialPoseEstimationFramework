@@ -2,6 +2,10 @@
 
 cd $(dirname $0)
 
+if [ ! -d "../venv" ]; then
+    echo -e "\nPlease install the venv through the Scripts/install_requirements.sh script.\n\n"
+fi
+
 webcam=0
 
 # Usage function
@@ -114,8 +118,9 @@ sleep 10
 if [[ $webcam -eq 1 ]]; then
     echo "Starting client"
 
+    source ../venv/bin/activate
     # Run the Python client
-    python3 poet_inference_client.py
+    python3.8 poet_inference_client.py &
 fi
 
 # Wait for the container to exit

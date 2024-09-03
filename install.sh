@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd $(dirname $0)
 sudo echo
 
 # Installing blenderproc using a venv
@@ -32,3 +33,16 @@ cd ../..
 docker pull aaucns/poet:latest
 
 sudo chmod -R +x Scripts
+
+cd Scripts
+
+#!/bin/bash
+
+# Check if python3.8 is installed
+if command -v python3.8 &> /dev/null; then
+    ./Scripts/install_requirements.sh
+else
+    echo -e "Python 3.8 is not installed. Please install it and then run the command:\n\n\t./Scripts/install_requirements.sh\n"
+fi
+
+cd ..
