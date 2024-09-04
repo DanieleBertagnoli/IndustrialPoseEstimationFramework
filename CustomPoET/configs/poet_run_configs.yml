@@ -7,7 +7,6 @@ training_configs:
   backbone_cfg: '/opt/project/configs/yolo.cfg'
   backbone_weights: '/opt/project/PreTrained/ycbv_yolo_weights.pt'
   bbox_mode: 'backbone'
-  dataset: 'thales'
   dataset_path: '/opt/project/PoetDataset'
   n_classes: 14
   train_set: 'train'
@@ -33,7 +32,6 @@ inference_configs:
   inference_output: '/opt/project/InferenceOutput'
   lr_backbone: 0
   bbox_mode: 'backbone'
-  dataset: 'thales'
   dataset_path: '/opt/project/PoetDataset'
   n_classes: 14
   lr_backbone: 0

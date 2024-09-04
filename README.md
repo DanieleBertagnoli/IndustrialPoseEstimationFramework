@@ -11,6 +11,8 @@ The framework is composed of two projects from which we started:
 Our work consisted of modifying and adjusting some bugs and problems encountered while using the two listed projects. Moreover, we developed a set of scripts to simplify the usability of the two projects.
 
 ## Installation 🚀
+**IMPORTANT NOTE: In order to run the inference scripts you must have Python3.8 installed. Otherwise they won't work. Please install it and then follow the instructions**.
+
 To install all the necessary components, run the following code:
 
 ```
@@ -161,12 +163,10 @@ Training the backbone is very simple:
     - Adjust the `classes` value in the each `[yolo]` layer with the number of objects in your dataset.
     - Adjust the `filters` value in each `[convolutional]` layer that preceeds the `[yolo]` layer. The numer of filters is calculated as follow: **(number of classes + 5) * 3**. Suppose that you have 20 classes, then the filters must be set to (20 + 5) * 3 = 75.
 
-4. Modify the script `./Scripts/PoETScripts/yolo_train.sh`, you must adjust the `--shm-size` value based on your GPU's VRAM in GB.
-
-5. Run the training script:
+4. Run the training script:
 
 ```
-./Scripts/PoETScripts/yolo_train.sh
+./Scripts/PoETScripts/yolo_train.sh --dataset_name YOUR_DATASET_NAME --gpu_mem_size GPU_MEM_IN_GB
 ```    
 
 The results will be put in the `CustomPoET/YoloRuns` folder, probably to access them you have to change the directory permissions, since Docker will make it unreadable for everyone else except docker itself:
@@ -189,15 +189,11 @@ Once you trained the backbone, the next step is to train the transformer model:
     - `enc_layers`: Number of transformer encoding layers. Suggested value: 5.
     - `dec_layers`: Number of transformer decoding layers. Suggested value: 5.
     - `nheads`: Number of transformer heads. Suggested value: 5.
-    - `model_symmetry`: Path of the symmetry.json file created by the setup script (`CustomPoET/PoetDataset/annotations/YOUR_DATASET_NAME/symmetry.json`).
-    - `class_info`: Path of the classes.json file created by the setup script (`CustomPoET/PoetDataset/annotations/YOUR_DATASET_NAME/classes.json`).
 
-2. Modify the script `./Scripts/PoETScripts/poet_train.sh`, you must adjust the `--shm-size` value based on your GPU's VRAM in GB.
-
-3. Run the training script:
+2. Run the training script:
 
 ```
-./Scripts/PoETScripts/poet_train.sh
+./Scripts/PoETScripts/poet_train.sh --dataset_name YOUR_DATASET_NAME --gpu_mem_size GPU_MEM_IN_GB
 ```
 
 The results will be generated in `CustomPoET/PoetOutput` folder, probably to access them you have to change the directory permissions, since Docker will make it unreadable for everyone else except docker itself:
