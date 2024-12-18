@@ -34,10 +34,6 @@ docker pull aaucns/poet:latest
 
 sudo chmod -R +x Scripts
 
-cd Scripts
-
-#!/bin/bash
-
 # Check if python3.8 is installed
 if command -v python3.8 &> /dev/null; then
     ./Scripts/install_requirements.sh
