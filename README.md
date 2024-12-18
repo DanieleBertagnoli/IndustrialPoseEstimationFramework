@@ -65,10 +65,10 @@ obj_000010.png
 ```
 
 ### Usage
-To run the dataset generation, we developed the `Scripts/generate_custom_dataset.sh` script. You can run it by also specifying some additional parameters:
+To run the dataset generation, we developed the `./Scripts/BlenderprocScripts/generate_custom_dataset.sh` script. You can run it by also specifying some additional parameters:
 
 ```
-./Scripts/generate_custom_dataset.sh --dataset_name DATASET_FOLDER_NAME --num_scenes 100 --yolo_conversion 1
+./Scripts/generate_custom_dataset.sh --dataset_name DATASET_FOLDER_NAME --num_scenes 100 --yolo_conversion true
 ```
 
 The `dataset_name` must be equal to the folder you created during the setup phase in the `CustomBlenderproc/datasets/` folder. `num_scenes` indicates the number of sequences that will be generated. Each sequence is composed of 1000 frames, and every 25 frames the scene is reset (i.e., the objects, lights, background textures, camera positions, etc., are re-initialized). The `yolo_conversion` parameter can be either 0 or 1, where 0 indicates False and 1 indicates True. At the end of the generation, a new dataset will be generated using a YOLO-like format (this can be used to train the YOLO backbone in PoET, see next sections).
