@@ -8,6 +8,7 @@ cd CustomBlenderproc
 python3 -m venv venv
 source venv/bin/activate
 pip install -e .
+blenderproc pip install "git+https://github.com/thodan/bop_toolkit"
 
 # Downloading background textures for dataset generation
 wget https://bertagnoli.ddns.net/static/PublicDrive/BackgroundTextures.zip
