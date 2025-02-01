@@ -393,7 +393,7 @@ def calc_model_info(models_path):
     dp_model = {
         "obj_ids": [i for i in range(1, len(ply_files)+1)],
         "model_tpath": os.path.join(models_path, "obj_{obj_id:06d}.ply"),
-        "models_info_path": os.path.join(models_path, "models_info.json"),
+        "models_info_path": os.path.join(models_path, '..', '..', "models_info.json"),
     }
 
     models_info = {}
