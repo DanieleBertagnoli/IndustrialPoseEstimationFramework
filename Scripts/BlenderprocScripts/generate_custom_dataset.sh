@@ -171,12 +171,12 @@ rm -rf $blenderproc_dir/datasets/ycbv
 mv $blenderproc_dir/datasets/models_info.json $blenderproc_dir/datasets/$dataset_name
 
 # Create the datasets folder if it doesn't exist
-if [[ ! -d "../../$dataset_name/Datasets" ]]; then
-    mkdir -p ../../$dataset_name/Datasets
+if [[ ! -d "../../Datasets/$dataset_name" ]]; then
+    mkdir -p ../../Datasets/$dataset_name
 fi
 
 # Move the generated dataset into the datasets folder
-mv $blenderproc_dir/GeneratedScenesBop ../../$dataset_name/Datasets
+mv $blenderproc_dir/GeneratedScenesBop ../../Datasets/$dataset_name
 
 # Start the yolo conversion if enabled
 if [[ $yolo_conversion -eq 1 ]]; then 
